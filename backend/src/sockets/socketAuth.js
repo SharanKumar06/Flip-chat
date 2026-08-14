@@ -8,7 +8,7 @@ const socketAuth= (socket, next)=>{
         }
         const token = authHeader.split(" ")[1];
         const decoded= verifyToken(token, process.env.JWT_SECRET);
-        socket.userId= decoded._id;
+        socket.userId= decoded.id;
         next();
 
     } catch (err) {
