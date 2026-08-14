@@ -3,6 +3,7 @@ const http = require("http")
 const dotenv= require("dotenv")
 const {Server}= require("socket.io")
 const connectDb= require("./src/database/mongo")
+const initializeSockets = require("./src/sockets/socket")
 
 dotenv.config()
 connectDb();
@@ -13,6 +14,8 @@ const io= new Server(server, {
       orgin:"*"
     }
 });
+
+initializeSockets(io);
 
 const PORT= process.env.PORT || 5000;
 
