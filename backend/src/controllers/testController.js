@@ -1,3 +1,4 @@
+const { publishMessage } = require("../redis/pubSubClient");
 const presenceService= require("../services/presenceService")
 const testOnline= async(req,res)=>{
     try {
@@ -27,4 +28,17 @@ const clearRedis= async(req, res)=>{
     }
 }
 
-module.exports= {testOnline, clearRedis};
+const testPublish = async(req, res)=>{
+    try {
+        const result= await publishMessage(req.body)
+        return res.status(200).json({
+            message: "message sent"
+        })
+    } catch (err) {
+        return res.status(401).json({
+            message: err.message
+        })
+    }
+}
+
+module.exports= {testOnline, clearRedis, testPublish};

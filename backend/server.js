@@ -6,9 +6,16 @@ const connectDb= require("./src/database/mongo")
 const initializeSockets = require("./src/sockets/socket")
 const {connectRedis} = require("../backend/src/redis/redisClient")
 
+const {connectPubSub, publishMessage, subscribeToChannel, CHANNELS} = require("../backend/src/redis/pubSubClient")
+
 dotenv.config()
 connectDb();
 connectRedis();
+connectPubSub();
+
+subscribeToChannel(CHANNELS.MESSAGES, (message)=>{
+    console.log("message recieved: ", JSON.parse(message));
+})
 
 const server= http.createServer(app);
 const io= new Server(server, {
