@@ -1,15 +1,30 @@
-const test= async(req,res)=>{
+const presenceService= require("../services/presenceService")
+const testOnline= async(req,res)=>{
     try {
-         console.log("testing successful");
+
+        const onlineStatus= await presenceService.isOnline(req.body.userId);
+        console.log(`${req.body.userId} ${onlineStatus}`);
+        //  console.log("testing successful");
         return res.status(200).json({
             message: "testing successful"
         })
     } catch (err) {
         return res.status(401).json({
-            message:"testing failed"
+            message:err.message
         })
     }
    
 }
 
-module.exports= {test};
+const clearRedis= async(req, res)=>{
+    try {
+        const result= await presenceService.clearDatabase();
+        return res.status(200).json({message: "redis database cleared"});
+    } catch (err) {
+        return res.status(401).json({
+            message: err.message
+        })
+    }
+}
+
+module.exports= {testOnline, clearRedis};
