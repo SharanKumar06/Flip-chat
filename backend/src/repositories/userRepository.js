@@ -14,4 +14,5 @@ const createUser= async (userData)=>{
     return user
 }
 
+
 module.exports= {findUserByEmail, findUserById, createUser};
