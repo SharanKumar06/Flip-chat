@@ -2,7 +2,7 @@
 const {client}= require("./redisClient");
 
 const publisher= client.duplicate();
-const subscriber= client.duplicate();
+const subscriber=  client.duplicate();
 
 
 const CHANNELS= {

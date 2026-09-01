@@ -1,14 +1,18 @@
+const dotenv= require("dotenv")
+dotenv.config()
+
 const app = require("./src/app")
 const http = require("http")
-const dotenv= require("dotenv")
+
 const {Server}= require("socket.io")
 const connectDb= require("./src/database/mongo")
 const initializeSockets = require("./src/sockets/socket")
-const {connectRedis} = require("../backend/src/redis/redisClient")
 
+
+const {connectRedis} = require("../backend/src/redis/redisClient")
 const {connectPubSub, publishMessage, subscribeToChannel, CHANNELS} = require("../backend/src/redis/pubSubClient")
 
-dotenv.config()
+
 connectDb();
 connectRedis();
 connectPubSub();
